@@ -11,7 +11,7 @@
 
 **다시 적용 모든 breakpoint의** 명령은 원래 위치에 다시 모든 breakpoint을 설정합니다. 디버그 환경이 아직 실행되지 않은 소스 코드에서 "lazy"및 "misplaces" breakpoint 인 경우에 유용합니다.
 
-![](/Users/woowahan16/Projects/wtc/Day3/maeng2418-brightchul-0407chan-learn-node/breakpoints.png)
+![](breakpoints.png)
 
 
 
@@ -19,5 +19,29 @@
 
 선택적으로 breakpoint 은 설정을 활성화하여 편집기의 개요 눈금자에 표시 할 수 있습니다 `debug.showBreakpointsInOverviewRuler`.
 
-![](/Users/woowahan16/Projects/wtc/Day3/maeng2418-brightchul-0407chan-learn-node/breakpoints2.png)
+![](breakpoints2.png)
 
+​    
+
+​    
+
+
+
+# step over, step into, step out
+
+## step over
+
+- 한 라인을 실행하지만 함수를 호출할 경우 메소드 내부로 들어가지 않고 현재 스코프의 다음 행으로 진행한다.
+
+
+
+## step into
+
+- 한 라인을 실행하지만 함수 호출이 존재할 경우 함수 내부로 들어간다.
+- 만약 함수가 아닐 경우 step over와 동일하게 진행된다.
+
+
+
+## step out 
+
+- 함수를 끝까지 실행시키고 호출시킨 곳으로 되돌아 간다. 즉 제어가 이전 스택 프레임으로 돌아갈 때까지 진행된다. 
