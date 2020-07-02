@@ -6,6 +6,7 @@
 - [Step over / Step into/ Step out](./breakpoint란.md#step-over-step-into-step-out)
 
 - [Node.js 디버거](NodeJS_Debugger.md)
+- [Chrome 개발자도구에서 자바스크립트 디버깅 방법](./JavaScript_Debugging_with_Chrome.md)
 
 ## Contributor
 
