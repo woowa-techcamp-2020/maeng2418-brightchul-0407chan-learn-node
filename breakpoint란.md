@@ -11,7 +11,7 @@
 
 **다시 적용 모든 breakpoint의** 명령은 원래 위치에 다시 모든 breakpoint을 설정합니다. 디버그 환경이 아직 실행되지 않은 소스 코드에서 "lazy"및 "misplaces" breakpoint 인 경우에 유용합니다.
 
-![](/Users/woowahan16/Projects/wtc/Day3/maeng2418-brightchul-0407chan-learn-node/breakpoints.png)
+![](breakpoints.png)
 
 
 
@@ -19,7 +19,7 @@
 
 선택적으로 breakpoint 은 설정을 활성화하여 편집기의 개요 눈금자에 표시 할 수 있습니다 `debug.showBreakpointsInOverviewRuler`.
 
-![](/Users/woowahan16/Projects/wtc/Day3/maeng2418-brightchul-0407chan-learn-node/breakpoints2.png)
+![](breakpoints2.png)
 
 ​    
 
