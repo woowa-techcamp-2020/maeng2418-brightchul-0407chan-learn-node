@@ -1,7 +1,7 @@
 # breakpoint란
 
 
-## 중단 점[#](https://code.visualstudio.com/docs/editor/debugging#_breakpoints)
+## 중단 점
 
 에디터의 여백을 클릭 하거나 현재 행에서 F9 를 사용하여 중단 점을 전환 할 수 있습니다 . Run view의 **BREAKPOINTS** 섹션 에서 더 나은  제어 (활성화 / 비활성화 / 다시 적용)를 수행 할 수 있습니다 .
 
