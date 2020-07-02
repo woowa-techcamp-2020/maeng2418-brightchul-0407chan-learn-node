@@ -21,3 +21,27 @@
 
 ![](/Users/woowahan16/Projects/wtc/Day3/maeng2418-brightchul-0407chan-learn-node/breakpoints2.png)
 
+​    
+
+​    
+
+
+
+# step over, step into, step out
+
+## step over
+
+- 한 라인을 실행하지만 함수를 호출할 경우 메소드 내부로 들어가지 않고 현재 스코프의 다음 행으로 진행한다.
+
+
+
+## step into
+
+- 한 라인을 실행하지만 함수 호출이 존재할 경우 함수 내부로 들어간다.
+- 만약 함수가 아닐 경우 step over와 동일하게 진행된다.
+
+
+
+## step out 
+
+- 함수를 끝까지 실행시키고 호출시킨 곳으로 되돌아 간다. 즉 제어가 이전 스택 프레임으로 돌아갈 때까지 진행된다. 
