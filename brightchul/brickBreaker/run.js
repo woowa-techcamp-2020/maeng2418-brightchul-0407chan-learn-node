@@ -21,11 +21,44 @@ const paddle = new Paddle({
     color: '#0095DD'
 });
 
+const brickManager = new BrickManager({
+    x : ball.x, 
+    y : ball.y, 
+    brickRowCount : 5, 
+    brickColCount : 3
+});
+
 
 var score = 0;
 var lives = 1;
 
-const brickManager = new BrickManager({x : ball.x , y : ball.y, brickRowCount : 5, brickColCount : 3});
+class GameManager {
+    constructor({brickManager, ball, paddle, score = 0, lives = 1}) {
+        this.brickManager = brickManager;
+        this.ball = ball;
+        this.paddle = paddle;
+        this.score = score;
+        this.lives = lives;
+    }
+    plusScore(v) {
+        this.score += v;
+    }
+    equalScore(v) {
+        return this.score === v;
+    }
+    decreaseLives() {
+        this.lives--;
+    }
+    hasLives() {
+        return this.lives > 0;
+    }
+}
+
+const game = new GameManager({
+    brickManager,
+    ball,
+    paddle
+})
 
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -65,8 +98,9 @@ function collisionDetection() {
                 if(brick.isCollision(ball.x, ball.y)){
                     ball.turnDY();
                     brick.changeStatus();
-                    score++;
-                    if (score == brickTotalCount) {
+                    game.plusScore(1);
+                    // score++;
+                    if (game.equalScore(brickTotalCount)) {
                         alert("YOU WIN, CONGRATS!");
                         document.location.reload();
                     }
@@ -109,12 +143,12 @@ function drawBricks() {
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score: " + score, 8, 20);
+    ctx.fillText("Score: " + game.score, 8, 20);
 }
 function drawLives() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
+    ctx.fillText("Lives: " + game.lives, canvas.width - 65, 20);
 }
 
 function draw() {
@@ -137,8 +171,9 @@ function draw() {
             ball.turnDY();
         }
         else {
+            game.decreaseLives();
             lives--;
-            if (!lives) {
+            if (game.hasLives()) {
                 alert("GAME OVER");
                 document.location.reload();
             }
