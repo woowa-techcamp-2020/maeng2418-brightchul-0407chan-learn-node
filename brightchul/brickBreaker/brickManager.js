@@ -27,6 +27,9 @@ class Brick {
     changeStatus() {
         this.status = 0;
     }
+    isLive() {
+        return this.status === 1;
+    }
 }
 
 class BrickManager {
@@ -49,5 +52,13 @@ class BrickManager {
     }
     getBrick(c,r) {
         return this.bricks[c][r];
+    }
+    bricksLoop(callback) {
+        const {brickColCount, brickRowCount} = this;
+        for(let c = 0; c<brickColCount; c++) {
+            for(let r = 0; r<brickRowCount; r++) {
+                callback(this.bricks[c][r], c, r);
+            }
+        }
     }
 }
