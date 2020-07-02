@@ -17,14 +17,29 @@ const ball = new Ball({
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width - paddleWidth) / 2;
+var paddleY = canvas.height - paddleHeight;
 
-// brickManager
-var brickRowCount = 5;
-var brickColumnCount = 3;
+class Paddle {
+    constructor({paddleX, paddleY, paddleHeight, paddleWidth}) {
+        this.x = paddleX;
+        this.y = paddleY;
+        this.height = paddleHeight;
+        this.width = paddleWidth;
+    }
+    getInfo() {
+        return [this.x, this.y, this.width, this.height];
+    }
+    setX(v) {
+        this.x = v;
+    }
+    move(v) {
+        this.x += v;
+    }
+}
 
-// 
+
 var score = 0;
-var lives = 3;
+var lives = 1;
 
 const brickManager = new BrickManager({x : ball.x , y : ball.y, brickRowCount : 5, brickColCount : 3});
 
@@ -94,7 +109,7 @@ function drawPaddle() {
 }
 function drawBricks() {
     for (var c = 0; c < brickManager.brickColCount; c++) {
-        for (var r = 0; r < brickRowCount; r++) {
+        for (var r = 0; r < brickManager.brickRowCount; r++) {
             const brick = brickManager.getBrick(c,r);
             if (brick.status === 1) {
                 brick.calculateXY(r, c);
