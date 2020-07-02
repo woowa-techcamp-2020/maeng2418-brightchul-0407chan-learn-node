@@ -17,3 +17,4 @@ inpect를 누릅니다.
 ![https://k.kakaocdn.net/dn/bARpd0/btqvNjBGr2M/PKsSYKcZ7sqdDyinYBRS5k/img.png](https://k.kakaocdn.net/dn/bARpd0/btqvNjBGr2M/PKsSYKcZ7sqdDyinYBRS5k/img.png)
 
 break 상태로 devtools가 실행되면 디버깅을 할수 있습니다.
+

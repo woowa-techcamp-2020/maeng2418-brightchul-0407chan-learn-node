@@ -1,4 +1,4 @@
-![](watch-window-example.png)
+![](img/watch-window-example.png)
 
 # watch 사용 방법
 - 디버깅 하는 동안 watch window를 이용하여 변수와 식을 볼 수 있다.
