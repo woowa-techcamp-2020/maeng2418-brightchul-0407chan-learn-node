@@ -28,36 +28,11 @@ const brickManager = new BrickManager({
     brickColCount : 3
 });
 
-
-var score = 0;
-var lives = 1;
-
-class GameManager {
-    constructor({brickManager, ball, paddle, score = 0, lives = 1}) {
-        this.brickManager = brickManager;
-        this.ball = ball;
-        this.paddle = paddle;
-        this.score = score;
-        this.lives = lives;
-    }
-    plusScore(v) {
-        this.score += v;
-    }
-    equalScore(v) {
-        return this.score === v;
-    }
-    decreaseLives() {
-        this.lives--;
-    }
-    hasLives() {
-        return this.lives > 0;
-    }
-}
-
 const game = new GameManager({
     brickManager,
     ball,
-    paddle
+    paddle,
+    canvas
 })
 
 
@@ -86,48 +61,29 @@ function keyUpHandler(e) {
 function mouseMoveHandler(e) {
     var relativeX = e.clientX - canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) {
-        paddle.setX(relativeX - paddle.width/2);
-    }
-}
-function collisionDetection() {
-    const brickTotalCount = brickManager.getTotalCount();
-    for (var c = 0; c < brickManager.brickColCount; c++) {
-        for (var r = 0; r < brickManager.brickRowCount; r++) {
-            const brick = brickManager.getBrick(c,r);
-            if (brick.status == 1) {
-                if(brick.isCollision(ball.x, ball.y)){
-                    ball.turnDY();
-                    brick.changeStatus();
-                    game.plusScore(1);
-                    // score++;
-                    if (game.equalScore(brickTotalCount)) {
-                        alert("YOU WIN, CONGRATS!");
-                        document.location.reload();
-                    }
-                }
-            }
-        }
+        game.paddle.setX(relativeX - game.paddle.width/2);
     }
 }
 
+
 function drawBall() {
     ctx.beginPath();
-    ctx.arc(...ball.getInfo());
-    ctx.fillStyle = ball.color;
+    ctx.arc(...game.ball.getInfo());
+    ctx.fillStyle = game.ball.color;
     ctx.fill();
     ctx.closePath();
 }
 function drawPaddle() {
     ctx.beginPath();
-    ctx.rect(...paddle.getInfo());
-    ctx.fillStyle = paddle.color;
+    ctx.rect(...game.paddle.getInfo());
+    ctx.fillStyle = game.paddle.color;
     ctx.fill();
     ctx.closePath();
 }
 function drawBricks() {
-    for (var c = 0; c < brickManager.brickColCount; c++) {
-        for (var r = 0; r < brickManager.brickRowCount; r++) {
-            const brick = brickManager.getBrick(c,r);
+    for (var c = 0; c < game.brickManager.brickColCount; c++) {
+        for (var r = 0; r < game.brickManager.brickRowCount; r++) {
+            const brick = game.brickManager.getBrick(c,r);
             if (brick.status === 1) {
                 brick.calculateXY(r, c);
 
@@ -158,38 +114,14 @@ function draw() {
     drawPaddle();
     drawScore();
     drawLives();
-    collisionDetection();
 
-    if (ball.getInfoXRight() > canvas.width || ball.getInfoXLeft() < 0) {
-        ball.turnDX();
-    }
-    if (ball.getInfoYBottom() < 0) {
-        ball.turnDY();
-    }
-    else if (ball.getInfoYTop() > canvas.height) {
-        if (ball.x > paddle.x && ball.x < paddle.x + paddle.width) {
-            ball.turnDY();
-        }
-        else {
-            game.decreaseLives();
-            if (!game.hasLives()) {
-                alert("GAME OVER");
-                document.location.reload();
-            }
-            else {
-                ball.reset();
-                paddle.reset();
-            }
-        }
-    }
-
-    if (rightPressed && paddle.x + paddle.width < canvas.width) {
-        paddle.move(7);
-    }
-    else if (leftPressed && paddle.x > 0) {
-        paddle.move(-7);
-    }
+    game.collisionDetection();
+    game.isOutBallX();
+    game.isOutBallY();
+    game.movePaddle(rightPressed, leftPressed);
+    game.moveBall();
     ball.move();
+
     requestAnimationFrame(draw);
 }
 
