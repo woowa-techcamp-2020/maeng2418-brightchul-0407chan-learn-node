@@ -172,8 +172,7 @@ function draw() {
         }
         else {
             game.decreaseLives();
-            lives--;
-            if (game.hasLives()) {
+            if (!game.hasLives()) {
                 alert("GAME OVER");
                 document.location.reload();
             }
