@@ -13,29 +13,13 @@ const ball = new Ball({
     dy : -2
 });
 
-// paddle
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width - paddleWidth) / 2;
-var paddleY = canvas.height - paddleHeight;
-
-class Paddle {
-    constructor({paddleX, paddleY, paddleHeight, paddleWidth}) {
-        this.x = paddleX;
-        this.y = paddleY;
-        this.height = paddleHeight;
-        this.width = paddleWidth;
-    }
-    getInfo() {
-        return [this.x, this.y, this.width, this.height];
-    }
-    setX(v) {
-        this.x = v;
-    }
-    move(v) {
-        this.x += v;
-    }
-}
+const paddle = new Paddle({
+    paddleWidth : 75, 
+    paddleHeight : 10, 
+    paddleX : (canvas.width - 75) / 2, 
+    paddleY : canvas.height - 10, 
+    color: '#0095DD'
+});
 
 
 var score = 0;
@@ -69,7 +53,7 @@ function keyUpHandler(e) {
 function mouseMoveHandler(e) {
     var relativeX = e.clientX - canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) {
-        paddleX = relativeX - paddleWidth / 2;
+        paddle.setX(relativeX - paddle.width/2);
     }
 }
 function collisionDetection() {
@@ -80,7 +64,6 @@ function collisionDetection() {
             if (brick.status == 1) {
                 if(brick.isCollision(ball.x, ball.y)){
                     ball.turnDY();
-                    // dy = -dy;
                     brick.changeStatus();
                     score++;
                     if (score == brickTotalCount) {
@@ -102,8 +85,8 @@ function drawBall() {
 }
 function drawPaddle() {
     ctx.beginPath();
-    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.rect(...paddle.getInfo());
+    ctx.fillStyle = paddle.color;
     ctx.fill();
     ctx.closePath();
 }
@@ -144,17 +127,14 @@ function draw() {
     collisionDetection();
 
     if (ball.getInfoXRight() > canvas.width || ball.getInfoXLeft() < 0) {
-        // dx = -dx;
         ball.turnDX();
     }
     if (ball.getInfoYBottom() < 0) {
         ball.turnDY();
-        // dy = -dy;
     }
     else if (ball.getInfoYTop() > canvas.height) {
-        if (ball.x > paddleX && ball.x < paddleX + paddleWidth) {
+        if (ball.x > paddle.x && ball.x < paddle.x + paddle.width) {
             ball.turnDY();
-            // dy = -dy;
         }
         else {
             lives--;
@@ -164,20 +144,18 @@ function draw() {
             }
             else {
                 ball.reset();
-                paddleX = (canvas.width - paddleWidth) / 2;
+                paddle.reset();
             }
         }
     }
 
-    if (rightPressed && paddleX < canvas.width - paddleWidth) {
-        paddleX += 7;
+    if (rightPressed && paddle.x + paddle.width < canvas.width) {
+        paddle.move(7);
     }
-    else if (leftPressed && paddleX > 0) {
-        paddleX -= 7;
+    else if (leftPressed && paddle.x > 0) {
+        paddle.move(-7);
     }
     ball.move();
-    // x += dx;
-    // y += dy;
     requestAnimationFrame(draw);
 }
 
