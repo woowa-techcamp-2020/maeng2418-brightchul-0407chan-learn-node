@@ -32,7 +32,7 @@ class Brick {
 class BrickManager {
     constructor({x, y, brickColCount, brickRowCount}) {
         const bricks = [];
-        for (var c = 0; c < brickColumnCount; c++) {
+        for (var c = 0; c < brickColCount; c++) {
             bricks[c] = [];
             for (var r = 0; r < brickRowCount; r++) {
                 bricks[c][r] = new Brick({ x, y });
