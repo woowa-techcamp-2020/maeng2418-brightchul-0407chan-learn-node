@@ -9,7 +9,10 @@ class Paddle {
         this.color = color;
     }
     getInfo() {
-        return [this.x, this.y, this.width, this.height];
+        return {
+            color : this.color,
+            info : [this.x, this.y, this.width, this.height]
+        };
     }
     setX(v) {
         this.x = v;

@@ -1,8 +1,8 @@
 
 class Brick {
     constructor({ x, y, status = 1, color = '#0095DD', 
-    brickWidth=75, brickHeight=20, brickPadding=10, 
-    brickOffsetTop=30, brickOffsetLeft=30}) {
+        brickWidth=75, brickHeight=20, brickPadding=10, 
+        brickOffsetTop=30, brickOffsetLeft=30}) {
         this.x = x;
         this.y = y;
         this.status = status;
@@ -38,7 +38,9 @@ class BrickManager {
         for (var c = 0; c < brickColCount; c++) {
             bricks[c] = [];
             for (var r = 0; r < brickRowCount; r++) {
-                bricks[c][r] = new Brick({ x, y });
+                const brick = new Brick({x, y});
+                brick.calculateXY(r, c);
+                bricks[c][r] = brick;
             }
         }
 
@@ -60,5 +62,14 @@ class BrickManager {
                 callback(this.bricks[c][r], c, r);
             }
         }
+    }
+    getInfo() {
+        // [{info, color}, ...]
+        const resultArr = [];
+        this.bricksLoop( (brick, c, r) => {
+            if(brick.isLive())
+                resultArr.push({color : brick.color, info : brick.getInfo()});
+        });
+        return resultArr;
     }
 }

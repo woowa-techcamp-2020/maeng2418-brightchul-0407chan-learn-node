@@ -1,6 +1,7 @@
 
 class GameManager {
     constructor({brickManager, ball, paddle, score = 0, lives = 2, canvas}) {
+        const modelMap = Object.create(null);
         this.brickManager = brickManager;
         this.ball = ball;
         this.paddle = paddle;
@@ -73,6 +74,17 @@ class GameManager {
         }
     }
     moveBall() {
+        this.ball.move();
+    }
+    getModelInfo(key) {
+        return this[key].getInfo();
+    }
+    operate(rightPressed, leftPressed) {
+        this.collisionDetection();
+        this.isOutBallX();
+        this.isOutBallY();
+        this.movePaddle(rightPressed, leftPressed);
+        this.moveBall();
         this.ball.move();
     }
 }

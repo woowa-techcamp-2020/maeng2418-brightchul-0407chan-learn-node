@@ -1,6 +1,6 @@
 
 class Ball {
-    constructor({x, y, ballRadius, dx, dy}) {
+    constructor({x, y, ballRadius, dx, dy, color ="#0095DD"}) {
         this.originX = x;
         this.originY = y;
         this.x = x;
@@ -8,7 +8,7 @@ class Ball {
         this.ballRadius = ballRadius;
         this.dx = dx;
         this.dy = dy;
-        this.color = "#0095DD";
+        this.color = color;
         this.doublePI = Math.PI * 2;
     }
     turnDX() {
@@ -28,7 +28,10 @@ class Ball {
         this.dy = -3;
     }
     getInfo() {
-        return [this.x, this.y, this.ballRadius, 0, this.doublePI];
+        return {
+            color : this.color,
+            info : [this.x, this.y, this.ballRadius, 0, this.doublePI]
+        };
     }
     getInfoXRight() {
         return this.x + this.dx + this.ballRadius;
