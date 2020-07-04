@@ -1,4 +1,4 @@
-# 우아한 테크 코스 3기 2일차 노드 학습
+# 우아한 테크 캠프 3기 2일차 노드 학습
 
 - [breakpoints란](NodeStudy/breakpoint란.md)
 - [watch사용법](NodeStudy/watch_사용방법.md)
